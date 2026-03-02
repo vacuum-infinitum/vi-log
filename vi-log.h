@@ -12,11 +12,11 @@
 //     Declarations are accessable at all times just by including
 //     this header.
 //
-//     Definitions are guarded by preprocessor condition:
+//     Definitions are guarded by the preprocessor condition:
 //       #if defined(VI_LOG_IMPLEMENTATION) || defined(VI_LIB_IMPLEMENTATION)
 //
-//     Which means that using this library requires "generating"
-//     implementations in one of *.c files like so:
+//     Which means that using this library requires "generating" library
+//     implementation in one of the source files (*.c) like so:
 //       #define VI_LOG_IMPLEMENTATION
 //       #include <vi-log.h>
 //
@@ -39,13 +39,13 @@
 //        This method has two ways of work:
 //          a) Library checks exsitence of a header named "vi-log-config.h"
 //             via `__has_include()` macro. And, if present, includes it
-//             before configuration in this header.
+//             before configuration step in this header.
 //
-//          b) Checking if `VI_LOG_CONFIG_LOCAL` macro is defined by user
+//          b) Library checks if `VI_LOG_CONFIG_LOCAL` macro is defined
 //             and if it is includes it like so:
 //               #include VI_LOG_CONFIG_LOCAL
 //
-//        Method 'b' take priority over method 'a'.
+//        Method 'b' takes priority over method 'a'.
 //
 // STRUCTURE:
 //  1. vi-log.h

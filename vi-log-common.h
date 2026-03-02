@@ -13,8 +13,9 @@
 #define __VI_LOG_COMMON_H
 
 // ----------------------------------------------------------------------------
-// `VI_LOG_LEVEL_*` macros are used to set current and maximum level
-// for logging messages.
+// `VI_LOG_LEVEL_*` macros define logging levels that are used to set current
+// and maximal logging levels for messages, and by `vi_log_<lvl>()` functions
+// for logging calls.
 // ----------------------------------------------------------------------------
 
 #define VI_LOG_LEVEL_OFF 0
@@ -52,8 +53,8 @@
 // NOTE_1: there is a default format for stderr-agent,
 //         so it's not required to define one yourself
 //
-// NOTE_2: in current implementation any unrecognized
-//         characters or values out of range are ignored
+// NOTE_2: in the current implementation any unrecognized characters
+//         or values out of range [0, VI_LOG_FORMAT_SYM_END] are ignored
 //
 // NOTE_3: For now this format is used only by stderr-agent.
 // ----------------------------------------------------------------------------
