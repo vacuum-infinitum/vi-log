@@ -21,7 +21,7 @@ Out of the box configurable logging agents (aka sinks):\
 
 Support for **user-defined (aka custom)** logging agents.
 
-Support for **stripping logging calls** that exceed configured log level limit.\
+Support for **stripping of logging calls** that exceed configured log level limit.\
 Which helps with the task of stripping logging calls based on release/debug version of an application.
 
 Support for **auto initialization/finalization** using **init_array/fini_array sections of ELF binaries**.
@@ -38,7 +38,7 @@ Most features and functions are self-explanatory, but I have tried to explain ot
    *This step is of optional if user is satisfied with default library configuration and desires to add a custom logging agent.*
 
 3. As for most **stb-like libraries** you should select *exactly one* C/C++ source file that actually instantiates the code,\
-   preferably a file you're not editing frequently. This file should define one of the implementations macros: \
+   preferably a file you're not editing frequently. This file should define one of the implementation macros:\
    `VI_LOG_IMPLEMENTATION` or `VI_LIB_IMPLEMENTATION` to actually enable the function definitions.
 
 4. Create and add custom logging agents. using `vi_log_agent_add(...)` function.\
@@ -84,7 +84,7 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  if (argc > 3) {
+  if (argc > 2) {
     // this message will be printed
     vi_log_wrn("Got too many arguments, only the first will be used");
   }
@@ -106,7 +106,7 @@ int main(int argc, char **argv) {
     vi_log_level_set(VI_LOG_LEVEL_TRC);
   }
 
-  // skip any messages
+  // skip any messages after this call
   vi_log_quiet_set(true);
 
   // 3. finalize library
