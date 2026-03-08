@@ -13,7 +13,7 @@
 //     this header.
 //
 //     Definitions are guarded by the preprocessor condition:
-//       #if defined(VI_LOG_IMPLEMENTATION) || defined(VI_LIB_IMPLEMENTATION)
+//       #if defined(VI_LIB_IMPLEMENTATION) || defined(VI_LOG_IMPLEMENTATION)
 //
 //     Which means that using this library requires "generating" library
 //     implementation in one of the source files (*.c) like so:
@@ -370,16 +370,16 @@ vi_log_config_dump() {}
 #if 1  /* >> utils */
 
 #ifndef vi_discard
-static inline void __attribute__((always_inline))
+static inline __attribute__((__always_inline__)) int
 __vi_discard(int x, ...)
 {
-  (void)(x);
+  return x;
 }
 #define vi_discard(...) __vi_discard(0, __VA_ARGS__)
 #endif
 
-#ifndef vi_str_bool
-#define vi_str_bool(x) ((x) ? "true" : "false")
+#ifndef vi_cstr_bool
+#define vi_cstr_bool(x) ((x) ? "true" : "false")
 #endif
 
 #endif /* << utils */
@@ -416,7 +416,7 @@ __vi_discard(int x, ...)
 
 #endif /* << marco-interface */
 #if 1  /* >> implementation */
-#if defined(VI_LOG_IMPLEMENTATION) || defined(VI_LIB_IMPLEMENTATION)
+#if defined(VI_LIB_IMPLEMENTATION) || defined(VI_LOG_IMPLEMENTATION)
 #include <assert.h>
 #include <string.h>
 #include <unistd.h> /* getpid() */
@@ -1056,27 +1056,27 @@ vi_log_config_dump()
 
   printf("  USE_VI_LOG_LEVEL: %d (%s)\n", USE_VI_LOG_LEVEL, vi_log_level2s(USE_VI_LOG_LEVEL));
   printf("  USE_VI_LOG_LEVEL_LIMIT: %d (%s)\n", USE_VI_LOG_LEVEL_LIMIT, vi_log_level2s(USE_VI_LOG_LEVEL_LIMIT));
-  printf("  USE_VI_LOG_AGENT_STDERR: %s\n", vi_str_bool(USE_VI_LOG_AGENT_STDERR));
+  printf("  USE_VI_LOG_AGENT_STDERR: %s\n", vi_cstr_bool(USE_VI_LOG_AGENT_STDERR));
 #if USE_VI_LOG_AGENT_STDERR
   printf("    USE_VI_LOG_AGENT_STDERR_FORMAT:\n");
   printf("      \"");
   vi_log_agent_stderr_format_dump();
   printf("\"\n");
 #endif
-  printf("  USE_VI_LOG_AGENT_SYSLOG: %s\n", vi_str_bool(USE_VI_LOG_AGENT_SYSLOG));
+  printf("  USE_VI_LOG_AGENT_SYSLOG: %s\n", vi_cstr_bool(USE_VI_LOG_AGENT_SYSLOG));
 #if USE_VI_LOG_AGENT_SYSLOG
   printf("    USE_VI_LOG_AGENT_SYSLOG_OPTIONS: 0x%x\n", USE_VI_LOG_AGENT_SYSLOG_OPTIONS);
   printf("    USE_VI_LOG_AGENT_SYSLOG_FACILITY: %d\n", LOG_FAC(USE_VI_LOG_AGENT_SYSLOG_FACILITY));
 #endif
   printf("  USE_VI_LOG_AGENTS_COUNT: %d\n", USE_VI_LOG_AGENTS_COUNT);
-  printf("  USE_VI_LOG_MUTEX_PTHREAD: %s\n", vi_str_bool(USE_VI_LOG_MUTEX_PTHREAD));
-  printf("  USE_VI_LOG_INITFINI_ARRAY: %s\n", vi_str_bool(USE_VI_LOG_INITFINI_ARRAY));
+  printf("  USE_VI_LOG_MUTEX_PTHREAD: %s\n", vi_cstr_bool(USE_VI_LOG_MUTEX_PTHREAD));
+  printf("  USE_VI_LOG_INITFINI_ARRAY: %s\n", vi_cstr_bool(USE_VI_LOG_INITFINI_ARRAY));
 
 }
 
 #endif
 
-#endif /* VI_LOG_IMPLEMENTATION || VI_LIB_IMPLEMENTATION */
+#endif /* defined(VI_LIB_IMPLEMENTATION) || defined(VI_LOG_IMPLEMENTATION) */
 #endif /* << implementation */
 
 #endif//__VI_LOG_H
